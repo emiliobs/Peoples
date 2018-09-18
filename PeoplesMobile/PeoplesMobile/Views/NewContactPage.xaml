@@ -5,10 +5,63 @@
               BindingContext="{Binding Main, Source={StaticResource Locator}}"
              Title="New Contact..">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms, New contacts..."
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <ScrollView  BindingContext="{Binding NewContact}">
+            <StackLayout
+            Padding="8">
+                <Label
+                Text="First name">
+                </Label>
+                <Entry
+                Placeholder="Enter first name..."
+                Text="{Binding FirstName, Mode=TwoWay}">
+                </Entry>
+                <Label
+                Text="Last name">
+                </Label>
+                <Entry
+                Placeholder="Enter last name..."
+                Text="{Binding LastName, Mode=TwoWay}">
+                </Entry>
+                <Label
+                Text="Email address">
+                </Label>
+                <Entry
+                Placeholder="Enter email address..."
+                Text="{Binding Email, Mode=TwoWay}">
+                </Entry>
+                <Label
+                Text="Phone number">
+                </Label>
+                <Entry
+                Placeholder="Enter phone number..."
+                Text="{Binding Phone, Mode=TwoWay}">
+                </Entry>
+                <ActivityIndicator
+                IsRunning="{Binding IsRunning}">
+                </ActivityIndicator>
+                <StackLayout
+                Orientation="Horizontal">
+                    <Button
+                    HorizontalOptions="FillAndExpand"
+                    Command="{Binding TakePictureCommand}"
+                    IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                    BackgroundColor="Orange"
+                    TextColor="White"
+                    Text="Take Picture."
+                        CornerRadius="35">
+                    </Button>
+                    <Button
+                    HorizontalOptions="FillAndExpand"
+                    Command="{Binding SaveNewContactCommand}"
+                    IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                    BackgroundColor="Navy"
+                    TextColor="White"
+                    Text="Save New Contact."
+                        CornerRadius="35">
+                    </Button>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+
     </ContentPage.Content>
 </ContentPage>

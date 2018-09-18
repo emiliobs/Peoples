@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:IC="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+              xmlns:IC="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              x:Class="PeoplesMobile.Views.ContactsPage"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
              Title="Contacts.">
@@ -15,42 +15,10 @@
             
             <ListView ItemsSource="{Binding ListContacts}"
                       HasUnevenRows="True"
-                      IsRefreshing="{Binding IsRefreshing}"
+                      IsRefreshing="{Binding IsRefreshing,Mode=TwoWay}"
                       RefreshCommand="{Binding RefreshCommand}"
-                      IsPullToRefreshEnabled="True">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Grid Padding="8">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
-                                    <ColumnDefinition Width="*"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <IC:CircleImage Source="{Binding ImageFullPath}"
-                                                Aspect="AspectFill"
-                                                WidthRequest="80"
-                                                HeightRequest="80">                                    
-                                </IC:CircleImage>
-                                <StackLayout Grid.Column="1">
-                                    <Label
-                                FontSize="Medium"
-                                FontAttributes="Bold"
-                                VerticalOptions="Center"
-                                Text="{Binding FullName}">
-                                    </Label>
-                                    <Label
-                                VerticalOptions="Center"
-                                Text="{Binding Phone, StringFormat='Phone number: {0}'}">
-                                    </Label>
-                                    <Label
-                                VerticalOptions="Center"
-                                Text="{Binding Email, StringFormat='Email address: {0}'}">
-                                    </Label>
-                                </StackLayout>
-                            </Grid>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
+                      IsPullToRefreshEnabled="True"
+                      ItemTemplate="{StaticResource ContactsDataTemplate}">                
             </ListView>
            
         </ScrollView>
