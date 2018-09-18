@@ -55,6 +55,9 @@
     <PackageReference Include="Xam.Plugin.Connectivity">
       <Version>3.2.0</Version>
     </PackageReference>
+    <PackageReference Include="Xam.Plugins.Forms.ImageCircle">
+      <Version>3.0.0.5</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="3.1.0.697729" />
     <PackageReference Include="Xamarin.Android.Support.Design" Version="27.0.2.1" />
     <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="27.0.2.1" />
@@ -90,12 +93,7 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\Icon.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\drawable-hdpi\" />
-    <Folder Include="Resources\drawable-xhdpi\" />
-    <Folder Include="Resources\drawable-xxhdpi\" />
-    <Folder Include="Resources\drawable-xxxhdpi\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\PeoplesMobile\PeoplesMobile.csproj">
       <Project>{AA9DF988-3488-46BB-B2AB-CBDED4375490}</Project>
@@ -121,9 +119,14 @@
     <AndroidResource Include="Resources\drawable\nouser.png" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_action_group_add.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_action_group_add.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_action_group_add.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_action_group_add.png" />
     <Content Include="Resources\drawable\fotoemi.jpg" />
     <AndroidResource Include="Resources\drawable\j.png" />
     <AndroidResource Include="Resources\drawable\jili.png" />
+    <AndroidResource Include="Resources\drawable\ic_action_group_add.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

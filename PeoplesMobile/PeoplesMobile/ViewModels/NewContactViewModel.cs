@@ -1,10 +1,9 @@
-﻿namespace PeoplesMobile.Models
+﻿namespace PeoplesMobile.ViewModels
 {
     using System;
     using System.Collections.Generic;
     using System.Text;
-    public class ContactItemViewModel : Contact
+    public class NewContactViewModel
     {
-       
     }
 }
