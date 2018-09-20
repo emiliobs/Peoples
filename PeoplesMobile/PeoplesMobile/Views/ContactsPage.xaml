@@ -13,13 +13,24 @@
     <ContentPage.Content>
         <ScrollView BindingContext="{Binding Contacts}">
             
-            <ListView ItemsSource="{Binding ListContacts}"
+            <StackLayout Padding="5">
+
+                <SearchBar HeightRequest="30"
+                           Placeholder="Search...."
+                           SearchCommand="{Binding SearchCommand}"
+                           Text="{Binding Filter}">
+                </SearchBar>
+
+                <ListView ItemsSource="{Binding ListContacts}"
                       HasUnevenRows="True"
                       IsRefreshing="{Binding IsRefreshing,Mode=TwoWay}"
                       RefreshCommand="{Binding RefreshCommand}"
                       IsPullToRefreshEnabled="True"
-                      ItemTemplate="{StaticResource ContactsDataTemplate}">                
-            </ListView>
+                      ItemTemplate="{StaticResource ContactsDataTemplate}">
+                </ListView>
+
+            </StackLayout>
+            
            
         </ScrollView>
              

@@ -53,6 +53,22 @@
         }
 
         public List<Contact>  myListContacts { get; set; }
+
+        private string filter;
+
+        public string Filter
+        {
+            get =>  filter;
+            set
+            {
+                if (filter != value)
+                {
+                    filter = value;
+                    this.RefreshList();
+                } 
+            }
+        }
+
         #endregion
 
         #region Cosntructors
@@ -88,6 +104,8 @@
         #endregion
 
         #region Commands
+
+        public ICommand SearchCommand { get => new RelayCommand(RefreshList); }
         public ICommand RefreshCommand { get => new RelayCommand(Refresh); }
 
 
@@ -137,21 +155,45 @@
 
         private void RefreshList()
         {
-            var MyContacRefres = myListContacts.Select(c =>  new Contact()
+
+            if (string.IsNullOrEmpty(Filter))
             {
-               ContactId = c.ContactId,
-               Email = c.Email,
-               FirstName = c.FirstName,
-               Image = c.Image,
-               ImageArray = c.ImageArray,
-               LastName = c.LastName,
-               Phone = c.Phone,
-               
+                var MyContacRefres = myListContacts.Select(c => new Contact()
+                {
+                    ContactId = c.ContactId,
+                    Email = c.Email,
+                    FirstName = c.FirstName,
+                    Image = c.Image,
+                    ImageArray = c.ImageArray,
+                    LastName = c.LastName,
+                    Phone = c.Phone,
 
-            });
 
-            ListContacts = new ObservableCollection<Contact>(MyContacRefres.OrderBy(c=>c.FullName));
-            IsRefreshing = false;
+                });
+
+                ListContacts = new ObservableCollection<Contact>(MyContacRefres.OrderBy(c => c.FullName));
+                IsRefreshing = false;
+            }
+            else
+            {
+                var MyContacRefres = myListContacts.Select(c => new Contact()
+                {
+                    ContactId = c.ContactId,
+                    Email = c.Email,
+                    FirstName = c.FirstName,
+                    Image = c.Image,
+                    ImageArray = c.ImageArray,
+                    LastName = c.LastName,
+                    Phone = c.Phone,
+
+
+                }).Where(c=>c.FirstName.ToLower().Trim().Contains(Filter.ToLower().Trim()));
+
+                ListContacts = new ObservableCollection<Contact>(MyContacRefres.OrderBy(c => c.FullName));
+                IsRefreshing = false;
+            }
+
+          
         }
 
         //private void ReloadContacts(List<Contact> contacts)

@@ -8,10 +8,18 @@
     <ContentPage.Content>
         <ScrollView  BindingContext="{Binding NewContact}">
             <StackLayout Padding="8">
-                <ic:CircleImage
+                <ic:CircleImage HeightRequest="250"
                     Source="{Binding ImageSource}"
-                    Aspect="AspectFill">                    
+                    Aspect="AspectFill">
+                    <ic:CircleImage.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding TakePictureCommand}"></TapGestureRecognizer>
+                    </ic:CircleImage.GestureRecognizers>                    
                 </ic:CircleImage>
+                <Label FontSize="Small"
+                       HorizontalOptions="Center"
+                       Text="Touch the image to change it.">                    
+                </Label>
+                <BoxView BackgroundColor="Red" HeightRequest="5"></BoxView>
                 <Label
                 Text="First name">
                 </Label>
@@ -42,6 +50,7 @@
                 Text="{Binding Phone, Mode=TwoWay}"
                     Keyboard="Telephone">
                 </Entry>
+                <BoxView BackgroundColor="Red" HeightRequest="5"></BoxView>
                 <ActivityIndicator
                 IsRunning="{Binding IsRunning}">
                 </ActivityIndicator>

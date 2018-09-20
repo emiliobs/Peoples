@@ -80,6 +80,8 @@
             dialogService = new DialogService();
             navigationService = new NavigationService();
 
+            ImageSource = "nouser";
+
             IsEnabled = true;
         }
         #endregion
@@ -97,29 +99,75 @@
         {
             await CrossMedia.Current.Initialize();
 
-            if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
+            var souce = await Application.Current.MainPage.DisplayActionSheet(
+                 "Where do you take the picture?",
+                 "Cancel",null,
+                 "From gallery",
+                 "Take a new picture"
+                );
+
+            if (souce == "Cancel")
             {
-                await dialogService.showMessage("No Camera", ":( No camera available.");
+                file = null;
+                return;
             }
 
-            file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions
+            if (souce == "Take a new picture")
             {
-                Directory = "Sample",
-                Name = "test.jpg",
-                PhotoSize = PhotoSize.Small,
-            });
+                file = await CrossMedia.Current.TakePhotoAsync(
 
-            IsRunning = true;
+                    new StoreCameraMediaOptions()
+                    {
+                        Directory = "Sample",
+                        Name = "test.jpg",
+                        PhotoSize= PhotoSize.Small,
+                    }
+                    
+                    );
+            }
+            else
+            {
+                file = await CrossMedia.Current.PickPhotoAsync();
+            }
 
             if (file != null)
             {
-                ImageSource = ImageSource.FromStream(() =>
-                {
+                ImageSource = ImageSource.FromStream(()=> {
+
                     var stream = file.GetStream();
+
                     return stream;
+
                 });
             }
-                     IsRunning = false;
+
+
+            #region OpcioTakePicture
+            //if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
+            //{
+            //    await dialogService.showMessage("No Camera", ":( No camera available.");
+            //}
+
+            //file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions
+            //{
+            //    Directory = "Sample",
+            //    Name = "test.jpg",
+            //    PhotoSize = PhotoSize.Small,
+            //});
+
+            //IsRunning = true;
+
+            //if (file != null)
+            //{
+            //    ImageSource = ImageSource.FromStream(() =>
+            //    {
+            //        var stream = file.GetStream();
+            //        return stream;
+            //    });
+            //}
+            //         IsRunning = false;
+            #endregion
+
 
 
 

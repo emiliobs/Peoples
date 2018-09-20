@@ -19,7 +19,7 @@ namespace Peoples.Wackend.Controllers
         // GET: Contacts
         public async Task<ActionResult> Index()
         {
-            return View(await db.Contacts.ToListAsync());
+            return View(await db.Contacts.OrderBy(c=>c.FirstName).ToListAsync());
         }
 
         // GET: Contacts/Details/5

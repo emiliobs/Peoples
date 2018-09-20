@@ -10,7 +10,13 @@ namespace PeoplesMobile
     {
         public App()
         {
+
+#if DEBUG
+            LiveReload.Init();
+#endif
             InitializeComponent();
+
+
 
             MainPage = new NavigationPage(new ContactsPage());
         }
