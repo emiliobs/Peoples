@@ -30,11 +30,29 @@
         #region Constructors
         public MainViewModel()
         {
+            //Singleton
+            instance = this;
+
             Contacts = new ContactsPageViewModel();
             navigationService = new NavigationService();
 
         }
 
+        #endregion
+
+        #region Singleton
+        private static MainViewModel instance;
+
+        public static MainViewModel GetInstance()
+        {
+            if (instance == null)
+            {
+                instance = new MainViewModel();
+
+            }
+
+            return instance;
+        }
         #endregion
 
         #region Commands

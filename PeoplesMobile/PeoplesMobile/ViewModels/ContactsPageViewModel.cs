@@ -51,20 +51,40 @@
                 }
             }
         }
+
+        public List<Contact>  myListContacts { get; set; }
         #endregion
 
         #region Cosntructors
         public ContactsPageViewModel()
         {
+
+            instance = this;
             //Services:
             apiservice = new ApiService();
             dialogService = new DialogService();
 
             //this.Contacts = new ObservableCollection<ContactItemViewModel>();
-            LoadContacts();
+           LoadContacts();
 
             navigationPage = new NavigationPage();
         }
+        #endregion
+
+        #region Singlenton
+
+        private static ContactsPageViewModel instance;
+
+        public static ContactsPageViewModel GetInstance()
+        {
+            if (instance == null)
+            {
+                return new ContactsPageViewModel();
+            }
+
+            return instance;
+        }
+
         #endregion
 
         #region Commands
@@ -75,9 +95,11 @@
 
         #region Methods
 
-        private void Refresh()
+        public void Refresh()
         {
+            IsRefreshing = true;
             LoadContacts();
+            IsRefreshing = false;
         }
 
         private async void LoadContacts()
@@ -87,7 +109,7 @@
             var connection = await apiservice.CheckConnection();
             if (!connection.IsSuccess)
             {
-                //IsRefreshing = false;
+                IsRefreshing = false;
                 await dialogService.showMessage("Error", connection.Message);
                 return;
             }
@@ -104,13 +126,32 @@
                 await dialogService.showMessage("Error", response.Message);
                 return;
             }
-            var myListContacts = (List<Contact>)response.Result;
-            ListContacts = new ObservableCollection<Contact>(myListContacts);
+             myListContacts = (List<Contact>)response.Result;
+            ListContacts = new ObservableCollection<Contact>(myListContacts.OrderBy(c=>c.FullName));
 
             IsRefreshing = false;
 
-            //ReloadContacts((List<Contact>)response.Result);
+            this.RefreshList();
 
+        }
+
+        private void RefreshList()
+        {
+            var MyContacRefres = myListContacts.Select(c =>  new Contact()
+            {
+               ContactId = c.ContactId,
+               Email = c.Email,
+               FirstName = c.FirstName,
+               Image = c.Image,
+               ImageArray = c.ImageArray,
+               LastName = c.LastName,
+               Phone = c.Phone,
+               
+
+            });
+
+            ListContacts = new ObservableCollection<Contact>(MyContacRefres.OrderBy(c=>c.FullName));
+            IsRefreshing = false;
         }
 
         //private void ReloadContacts(List<Contact> contacts)

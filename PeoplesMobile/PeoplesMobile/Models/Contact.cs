@@ -23,6 +23,8 @@
 
         public string FullName { get => $"{FirstName} {LastName}"; }
 
+        public byte[] ImageArray { get; set; }
+
         public string ImageFullPath
         {
             get
@@ -32,8 +34,9 @@
                     return "nouser.png";
                 }
 
-               // return string.Format("http://192.168.0.11:56064{0}", Image.Substring(1));
-               return $"http://192.168.0.11:56064{Image.Substring(1)}";
+                //                       // return string.Format("http://192.168.0.11:56064{0}", Image.Substring(1));
+                //return $"http://192.168.0.11:56064/api/ContactsApi{Image.Substring(1)}";
+                return $"http://192.168.0.11:56064{Image.Substring(1)}";
             }
         }
 
