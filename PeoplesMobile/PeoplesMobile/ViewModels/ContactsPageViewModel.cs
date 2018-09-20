@@ -16,12 +16,11 @@
         #region Services
         private ApiService apiservice;
         private DialogService dialogService;
-
-        private NavigationPage navigationPage;
+       
         #endregion
 
         #region Attributtes
-        ObservableCollection<Contact> listContacts;
+        ObservableCollection<ContactItemViewModel> listContacts;
         private bool isRefreshing;
         #endregion
 
@@ -38,7 +37,7 @@
                 }
             }
         }
-        public ObservableCollection<Contact> ListContacts
+        public ObservableCollection<ContactItemViewModel> ListContacts
         {
             get => listContacts;
 
@@ -79,11 +78,13 @@
             //Services:
             apiservice = new ApiService();
             dialogService = new DialogService();
+           
 
             //this.Contacts = new ObservableCollection<ContactItemViewModel>();
            LoadContacts();
 
-            navigationPage = new NavigationPage();
+          
+      
         }
         #endregion
 
@@ -104,14 +105,16 @@
         #endregion
 
         #region Commands
-
+       
         public ICommand SearchCommand { get => new RelayCommand(RefreshList); }
         public ICommand RefreshCommand { get => new RelayCommand(Refresh); }
 
 
         #endregion
 
-        #region Methods
+        #region Methods    
+
+      
 
         public void Refresh()
         {
@@ -144,9 +147,23 @@
                 await dialogService.showMessage("Error", response.Message);
                 return;
             }
-             myListContacts = (List<Contact>)response.Result;
-            ListContacts = new ObservableCollection<Contact>(myListContacts.OrderBy(c=>c.FullName));
 
+             myListContacts = (List<Contact>)response.Result;
+
+            var MyContacRefres = myListContacts.Select(c => new ContactItemViewModel()
+            {
+                ContactId = c.ContactId,
+                Email = c.Email,
+                FirstName = c.FirstName,
+                Image = c.Image,
+                ImageArray = c.ImageArray,
+                LastName = c.LastName,
+                Phone = c.Phone,
+
+
+            });
+
+            ListContacts = new ObservableCollection<ContactItemViewModel>(MyContacRefres.OrderBy(c => c.FullName));
             IsRefreshing = false;
 
             this.RefreshList();
@@ -158,7 +175,7 @@
 
             if (string.IsNullOrEmpty(Filter))
             {
-                var MyContacRefres = myListContacts.Select(c => new Contact()
+                var MyContacRefres = myListContacts.Select(c => new ContactItemViewModel()
                 {
                     ContactId = c.ContactId,
                     Email = c.Email,
@@ -171,12 +188,12 @@
 
                 });
 
-                ListContacts = new ObservableCollection<Contact>(MyContacRefres.OrderBy(c => c.FullName));
+                ListContacts = new ObservableCollection<ContactItemViewModel>(MyContacRefres.OrderBy(c => c.FullName));
                 IsRefreshing = false;
             }
             else
             {
-                var MyContacRefres = myListContacts.Select(c => new Contact()
+                var MyContacRefres = myListContacts.Select(c => new ContactItemViewModel()
                 {
                     ContactId = c.ContactId,
                     Email = c.Email,
@@ -189,7 +206,7 @@
 
                 }).Where(c=>c.FirstName.ToLower().Trim().Contains(Filter.ToLower().Trim()));
 
-                ListContacts = new ObservableCollection<Contact>(MyContacRefres.OrderBy(c => c.FullName));
+                ListContacts = new ObservableCollection<ContactItemViewModel>(MyContacRefres.OrderBy(c => c.FullName));
                 IsRefreshing = false;
             }
 

@@ -11,9 +11,10 @@
     </ContentPage.ToolbarItems>
     
     <ContentPage.Content>
-        <ScrollView BindingContext="{Binding Contacts}">
+      
             
-            <StackLayout Padding="5">
+            <StackLayout Padding="5" BindingContext="{Binding Contacts}">
+                        
 
                 <SearchBar HeightRequest="30"
                            Placeholder="Search...."
@@ -25,14 +26,64 @@
                       HasUnevenRows="True"
                       IsRefreshing="{Binding IsRefreshing,Mode=TwoWay}"
                       RefreshCommand="{Binding RefreshCommand}"
-                      IsPullToRefreshEnabled="True"
-                      ItemTemplate="{StaticResource ContactsDataTemplate}">
+                      IsPullToRefreshEnabled="True">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid Padding="8">
+
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding EditContactCommand}"></TapGestureRecognizer>
+                                    </Grid.GestureRecognizers> 
+                                    
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>                                          
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <IC:CircleImage Source="{Binding ImageFullPath}"
+                                                Aspect="AspectFill"
+                                                WidthRequest="80"
+                                                HeightRequest="80">
+                                    </IC:CircleImage>
+                                    <StackLayout Grid.Column="1">
+                                        <Label
+                                FontSize="Medium"
+                                FontAttributes="Bold"
+                                VerticalOptions="Center"
+                                Text="{Binding FullName}">
+                                        </Label>
+                                        <Label
+                                VerticalOptions="Center"
+                                Text="{Binding Phone, StringFormat='Phone number: {0}'}">
+                                        </Label>
+                                        <Label
+                                VerticalOptions="Center"
+                                Text="{Binding Email, StringFormat='Email address: {0}'}">
+                                        </Label>
+                                    </StackLayout>
+                                    <Image
+                              Aspect="Fill"
+                              BackgroundColor="AliceBlue"
+                              Grid.Column="2"
+                              Source="ic_action_chevron_right"
+                              VerticalOptions="Center">
+
+                                    </Image>
+
+                                </Grid>
+
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                    
                 </ListView>
+
 
             </StackLayout>
             
-           
-        </ScrollView>
              
     </ContentPage.Content>
 </ContentPage>

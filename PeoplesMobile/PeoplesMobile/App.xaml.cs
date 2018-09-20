@@ -17,8 +17,8 @@ namespace PeoplesMobile
             InitializeComponent();
 
 
-
-            MainPage = new NavigationPage(new ContactsPage());
+           // MainPage = new NavigationPage(new EditContactPage());
+           MainPage = new NavigationPage(new ContactsPage());
         }
 
         protected override void OnStart()

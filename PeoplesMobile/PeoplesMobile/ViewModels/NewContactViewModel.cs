@@ -255,7 +255,7 @@
             var newContact = (Contact)response.Result; ;
 
             var contactViewModel = ContactsPageViewModel.GetInstance();
-            contactViewModel.ListContacts.Add(newContact);
+            contactViewModel.myListContacts.Add(newContact);
            contactViewModel.Refresh();
 
             await navigationService.Back();

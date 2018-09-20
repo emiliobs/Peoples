@@ -24,6 +24,7 @@
         #region Properties
         public ContactsPageViewModel Contacts  { get; set; }
         public  NewContactViewModel NewContact { get; set; }
+        public EditContactViewModel EditContact { get; set; }
 
         #endregion
 

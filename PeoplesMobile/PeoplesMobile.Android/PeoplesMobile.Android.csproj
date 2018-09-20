@@ -131,6 +131,7 @@
     <AndroidResource Include="Resources\drawable\jili.png" />
     <AndroidResource Include="Resources\drawable\ic_action_group_add.png" />
     <AndroidResource Include="Resources\xml\file_paths.xml" />
+    <AndroidResource Include="Resources\drawable\ic_action_chevron_right.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

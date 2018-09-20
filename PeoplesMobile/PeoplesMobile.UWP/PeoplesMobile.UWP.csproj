@@ -104,6 +104,7 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Assets\ic_launcher.png" />
+    <AndroidResource Include="Assets\ic_action_chevron_right.png" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-200.png" />
     <Content Include="Assets\LargeTile.scale-400.png" />
